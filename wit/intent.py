@@ -1,14 +1,16 @@
-import nltk # natural language tool kit
+import numpy as np
 
-# importation des french stop words
+ # natural language tool kit
+import nltk
 from nltk.corpus import stopwords
 french_stopwords = set(stopwords.words('french'))
 
-import numpy as np
-
+# lemmatiseur créé à la mano à partir d'un gros csv
+# s'appuie sur un back en postgres
 from lemmatiseur.lemmatizeur import Lemmatiseur
 lemmatiseur = Lemmatiseur()
 
+# tokenizer qui supprime la ponction
 from nltk.tokenize import RegexpTokenizer
 tokenizer = RegexpTokenizer(r'\w+')
 
@@ -19,23 +21,24 @@ class Intent():
     '''
 
     def __init__(self, word_to_vec, nom):
+        '''
+        - nom est le nom de l'intent (humour, blague, etc)
+        - keywords est un ensemble de mots qui caractérisent l'intent
+          (lux = lumière, allumer... )
+        - model est le word2vec utilisé
+        '''
         self.nom = nom
         self.key_words = []
         self.model = word_to_vec
 
     def train(self, sentence):
         '''
-        Met à jour les key_words pour améliorer le classifier
-        Très simple : les key_words est un dictionnaire avec tous les mots
-        apparus en entrainement et leur fréquence d'apparition
-
-        NB : pour un bon entrainement en raison de comment fonctionne notre
-        classifier il faut utiliser des phrases longues avec des mots avec peu
-        de chance d'apparition
+        Ajoute sentence à la liste des key_words.
+        Plus il y a de mots dans key_words, plus le classifier sera performant
         '''
         sentence = prepare_sentence(sentence)
         for word in sentence:
-            # je ne l'ajoute que s'il est dans le word 2 vec
+            # je ne l'ajoute que s'il est dans le word2vec
             try:
                 self.model[word]
 
@@ -43,16 +46,25 @@ class Intent():
                     self.key_words.append(word)
 
             except KeyError:
-                print(word, " n'est pas dans le W2V")
+                pass
 
     def classifier_score(self, sentence):
-        sentence = prepare_sentence(sentence)
-        sentence_vectorized = sentence_to_vec_weights(sentence, self.model, self.key_words)
+        '''
+        Donne en fonction d'une phrase un score d'autant plus élevé que
+        le mot est proche de l'intent.
+        C'est la fonction charnière de notre classe.
+        '''
+
+        sentence = prepare_sentence(sentence) # tokenize / stopwords / punctuation
+        sentence_vectorized = sentence_to_vec_weights(sentence, self.model, self.key_words) # poids
         dist_list = [np.linalg.norm(self.model[keyword]-sentence_vectorized) for keyword in self.key_words]
         min_dist = min(dist_list)
-        return(1-min_dist/5)
+        return(1-min_dist/5) # formule à la con pour avoir quelque chose qui ressemble à peu près à un %
 
     def __str__(self):
+        '''
+        Ce que va retourner la fonction print.
+        '''
         return(str(self.key_words))
 
 def prepare_sentence(sentence):
@@ -60,7 +72,6 @@ def prepare_sentence(sentence):
     Takes a sentence returns it tokenized w/o French stopwords & lemmatized
     Also deletes apostrophes
     '''
-
     sentence = tokenizer.tokenize(sentence)
     new_sentence = []
     for i in range(len(sentence)):
@@ -71,10 +82,11 @@ def prepare_sentence(sentence):
 
 def sentence_to_vec(sentence, model):
     '''
-    Prend une liste de mots et return la moy
+    Sentence2Vec naïf qui renvoie la moyenne des mots.
     '''
-    # éventuellement penser à dégager les outliers
+    # astuce pour créer un vect de la mê dimension que W2V
     vec = np.zeros(model["lampe"].shape[0])
+
     length = 0
     for word in sentence:
         try:
@@ -89,10 +101,13 @@ def sentence_to_vec(sentence, model):
 
 def sentence_to_vec_weights(sentence, model, key_words):
     '''
-    Prend une liste de mots et return la moy
+    Sentence2Vec naïf qui renvoie la moyenne pondérée des mots.
+    Si mot not in key_words >> poids = 1
+    Si mot in key_words >> poids = 2
     '''
-    # éventuellement penser à dégager les outliers
+    # astuce pour créer un vect de la mê dimension que W2V
     vec = np.zeros(model["lampe"].shape[0])
+    
     length = 0
     for word in sentence:
         try:
