@@ -1,0 +1,3 @@
+w/o stemmer : 
+score = 1.26 
+accuracy = 85%

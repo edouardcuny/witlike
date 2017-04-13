@@ -25,4 +25,5 @@ class Lemmatiseur():
             return(self.cur.fetchall()[0][0])
 
         except IndexError:
+            # print("not in lemm")
             return(word)

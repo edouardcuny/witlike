@@ -37,6 +37,8 @@ humour.train("vanne")
 humour.train("rire")
 humour.train("marrer")
 humour.train("rigoler")
+humour.train("drôle")
+humour.train("marrant")
 
 class Wit():
     def __init__(self, word_to_vec, *args):
@@ -68,10 +70,47 @@ class Wit():
         idx = score_l.index(max(score_l))
         return(self.intents[idx].nom) # après la faire en mode dictionnaire
 
+    def score(self, test):
+        '''
+        Renvoie un score et un pourcentage sur la performance de classification
+        sur un set de test.
+
+        score = moyenne(écart au carrés à 2 du score de l'intent)
+        pourcentage = pourcentage de requêtes bien classifiées
+
+        '''
+        new = test.loc[test["intent"] != "nothing"].copy()
+        new["score"] = np.vectorize(lambda x,y : self.string_to_intent(x).classifier_score(y))(new["intent"], new["phrase"])
+        new["error"] = new["score"].apply(lambda x: (2.0-x)**2)
+        score = np.mean(new["error"])
+
+        new["pred"] = new["phrase"].apply(witlike.classify_intent)
+        accuracy = len(new[new["pred"] == new["intent"]])/len(new)
+        return(score, accuracy)
+
+
+
+    def string_to_intent(self, strintent):
+        for intent in self.intents:
+            if intent.nom == strintent:
+                return intent
+        print(strintent.upper()," pas d'intent trouvé")
 
 # je fais le test sur le csv écrit à la main
 l = [lux, ratp, humour, music]
 witlike = Wit (model, *l)
 test = pd.read_excel("train_intent.xlsx", sep = ";")
-test["pred"] = test["phrase"].apply(witlike.classify_intent)
-print(test)
+
+# RENVOIE LA CLASSE RETENUE POUR CHAQUE SENTENCE
+# test["pred"] = test["phrase"].apply(witlike.classify_intent)
+# print(test)
+
+# RENVOIE LE SCORE POUR CHAQUE INTENT
+# test["pred"] = test["phrase"].apply(witlike.classify_intent)
+# test["pred_lux"] = test["phrase"].apply(lux.classifier_score)
+# test["pred_ratp"] = test["phrase"].apply(ratp.classifier_score)
+# test["pred_music"] = test["phrase"].apply(music.classifier_score)
+# test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
+# test.to_csv("test.csv")
+
+print(witlike.score(test))

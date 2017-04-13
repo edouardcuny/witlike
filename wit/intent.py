@@ -107,7 +107,7 @@ def sentence_to_vec_weights(sentence, model, key_words):
     '''
     # astuce pour créer un vect de la mê dimension que W2V
     vec = np.zeros(model["lampe"].shape[0])
-    
+
     length = 0
     for word in sentence:
         try:

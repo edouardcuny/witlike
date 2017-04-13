@@ -1,4 +1,4 @@
 from lemmatizeur import Lemmatiseur
 
 lemmatiseur = Lemmatiseur()
-print(lemmatiseur.lemmatize("partimes"))
+print(lemmatiseur.lemmatize("marrante"))
