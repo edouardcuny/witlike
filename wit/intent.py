@@ -6,6 +6,11 @@ french_stopwords = set(stopwords.words('french'))
 
 import numpy as np
 
+from lemmatiseur.lemmatizeur import Lemmatiseur
+lemmatiseur = Lemmatiseur()
+
+from nltk.tokenize import RegexpTokenizer
+tokenizer = RegexpTokenizer(r'\w+')
 
 class Intent():
     '''
@@ -13,7 +18,8 @@ class Intent():
     Exemples = lumière, musique, blague
     '''
 
-    def __init__(self, word_to_vec):
+    def __init__(self, word_to_vec, nom):
+        self.nom = nom
         self.key_words = []
         self.model = word_to_vec
 
@@ -39,7 +45,7 @@ class Intent():
             except KeyError:
                 print(word, " n'est pas dans le W2V")
 
-    def classifier(self, sentence):
+    def classifier_score(self, sentence):
         sentence = prepare_sentence(sentence)
         sentence_vectorized = sentence_to_vec_weights(sentence, self.model, self.key_words)
         dist_list = [np.linalg.norm(self.model[keyword]-sentence_vectorized) for keyword in self.key_words]
@@ -51,13 +57,16 @@ class Intent():
 
 def prepare_sentence(sentence):
     '''
-    Takes a sentence returns it tokenized w/o French stopwords
+    Takes a sentence returns it tokenized w/o French stopwords & lemmatized
+    Also deletes apostrophes
     '''
-    sentence = nltk.word_tokenize(sentence)
+
+    sentence = tokenizer.tokenize(sentence)
     new_sentence = []
     for i in range(len(sentence)):
         if sentence[i] not in french_stopwords:
-            new_sentence.append(sentence[i])
+            word = lemmatiseur.lemmatize(sentence[i])
+            new_sentence.append(word)
     return(new_sentence)
 
 def sentence_to_vec(sentence, model):

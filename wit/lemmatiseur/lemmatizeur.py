@@ -10,5 +10,9 @@ class Lemmatiseur():
         self.cur = self.conn.cursor()
 
     def lemmatize(self, word):
-        self.cur.execute( "SELECT lemme FROM liste_lemme WHERE word = '{0}' ".format(word) )
-        return(self.cur.fetchall()[0][0])
+        try :
+            self.cur.execute( "SELECT lemme FROM liste_lemme WHERE word = '{0}' ".format(word) )
+            return(self.cur.fetchall()[0][0])
+
+        except IndexError:
+            return(word)

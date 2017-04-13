@@ -1,5 +1,10 @@
-import numpy as np
+# coding : utf-8
 
-arr1 = np.array([1,2,3])
-arr2 = np.array([1,2,4])
-print((arr1+arr2)/2)
+import pandas as pd
+import os
+
+os.chdir("/Users/edouardcuny/Desktop/witlike/wit")
+print(os.getcwd())
+test = pd.read_excel("train_intent.xlsx", sep = ";")
+test["pred"] = test["phrase"].apply(lambda x : x + "edouard")
+print(test)

@@ -1,4 +1,4 @@
 from lemmatizeur import Lemmatiseur
 
 lemmatiseur = Lemmatiseur()
-print(lemmatiseur.lemmatize("marchais"))
+print(lemmatiseur.lemmatize("partimes"))
