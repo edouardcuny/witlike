@@ -1,3 +1,7 @@
-w/o stemmer : 
+w/o stemmer / Wiki: 
 score = 1.26 
 accuracy = 85%
+
+w/o stemmer / Wac:
+score = 1.26
+accuracy = 87.5%

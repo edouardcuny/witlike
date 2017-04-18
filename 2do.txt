@@ -6,7 +6,7 @@
   - ou trouver une fonction antistem (tricky)
   - je pourrais avoir une base psql avec pour chaque mot stemmed le mot associé dans le W2V (jouable et plus simple que de jouer avec son W2V)
 
-
+> ou sinon je dis que quand la distance est proche entre deux mots alors le mot compte double et c'est cool
 
 - NER
   - j'ai des résultats un peu pourris parce que quand je demande quelque chose et que j'ai un mot qui flag je ne me sers pas du reste de la phrase pour comprendre le sens

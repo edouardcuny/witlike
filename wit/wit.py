@@ -8,7 +8,8 @@ import pandas as pd
 
 # importation du W2V
 os.chdir("/Users/edouardcuny/Desktop/witlike/wit")
-model = word2vec.load('frWiki_no_phrase_no_postag_1000_skip_cut100.bin')
+# model = word2vec.load('frWiki_no_phrase_no_postag_1000_skip_cut100.bin')
+model = word2vec.load('frWac_no_postag_no_phrase_700_skip_cut50.bin')
 
 # Lumière
 lux = Intent(word_to_vec = model, nom = "lux")
@@ -113,4 +114,9 @@ test = pd.read_excel("train_intent.xlsx", sep = ";")
 # test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
 # test.to_csv("test.csv")
 
+# RENVOIE LE SCORE TOTAL DU TEST ET LE % DE PHRASES BIEN CLASSÉES
 print(witlike.score(test))
+
+from lemmatiseur.lemmatizeur import Lemmatiseur
+lemmatiseur = Lemmatiseur()
+print(lemmatiseur.lemmatize("marrante"))
