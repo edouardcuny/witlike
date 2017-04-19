@@ -1,21 +1,12 @@
-- STEMMER
-  - issue = marrante et marrant c'est pas pareil
-  - solution = stemmer les deux et pointer vers le même mot
-  - du coup il faudrait rajouter des mots dans le W2V
-  - tous les mots du W2V stemmed
-  - ou trouver une fonction antistem (tricky)
-  - je pourrais avoir une base psql avec pour chaque mot stemmed le mot associé dans le W2V (jouable et plus simple que de jouer avec son W2V)
-
-> ou sinon je dis que quand la distance est proche entre deux mots alors le mot compte double et c'est cool
+ > faire un bilan des endroits où ça déconne >> ça va être du NER
+ 
 
 - NER
   - j'ai des résultats un peu pourris parce que quand je demande quelque chose et que j'ai un mot qui flag je ne me sers pas du reste de la phrase pour comprendre le sens
   - idéalement je me débrouille avec le reste pour voir si c'est un nom de chanson
 
-
 - INSTALL
   - pouvoir tout installer facilement sur l'ordinateur de quelqu'un d'autre
-
 
 - PLUS LOIN
 - autofixation des HP / pertinence d'en avoir ? 

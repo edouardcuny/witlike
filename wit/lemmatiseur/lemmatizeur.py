@@ -20,10 +20,18 @@ class Lemmatiseur():
         Sinon je le laisse inchangé.
         '''
 
+        # cgram = 'VER' est une règle arbitraire de priorité pour traiter le cas
+        # 'mets de la musique' mets = NOM & VERBE, je mets la priorité
+        # sur le verbe
+
         try :
-            self.cur.execute( "SELECT lemme FROM lemme_table WHERE word = '{0}' LIMIT 1;".format(word) )
+            self.cur.execute( "SELECT lemme FROM lemme_table WHERE word = '{0}' AND cgram = 'VER'  LIMIT 1;".format(word) )
             return(self.cur.fetchall()[0][0])
 
         except IndexError:
+            try :
+                self.cur.execute( "SELECT lemme FROM lemme_table WHERE word = '{0}'  LIMIT 1;".format(word) )
+                return(self.cur.fetchall()[0][0])
 
-            return(word)
+            except IndexError:
+                return(word)

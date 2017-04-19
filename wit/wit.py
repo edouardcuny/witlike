@@ -107,12 +107,13 @@ test = pd.read_excel("train_intent.xlsx", sep = ";")
 # print(test)
 
 # RENVOIE LE SCORE POUR CHAQUE INTENT
-# test["pred"] = test["phrase"].apply(witlike.classify_intent)
-# test["pred_lux"] = test["phrase"].apply(lux.classifier_score)
-# test["pred_ratp"] = test["phrase"].apply(ratp.classifier_score)
-# test["pred_music"] = test["phrase"].apply(music.classifier_score)
-# test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
-# test.to_csv("test.csv")
+test["pred"] = test["phrase"].apply(witlike.classify_intent)
+test["pred_lux"] = test["phrase"].apply(lux.classifier_score)
+test["pred_ratp"] = test["phrase"].apply(ratp.classifier_score)
+test["pred_music"] = test["phrase"].apply(music.classifier_score)
+test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
+print(test)
+test.to_csv("test.csv")
 
 # RENVOIE LE SCORE TOTAL DU TEST ET LE % DE PHRASES BIEN CLASSÉES
 print(witlike.score(test))
