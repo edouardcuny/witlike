@@ -1,9 +1,13 @@
- > faire un bilan des endroits où ça déconne >> ça va être du NER
- 
-
 - NER
   - j'ai des résultats un peu pourris parce que quand je demande quelque chose et que j'ai un mot qui flag je ne me sers pas du reste de la phrase pour comprendre le sens
   - idéalement je me débrouille avec le reste pour voir si c'est un nom de chanson
+> et puis va être essentiel pour ratp et autre 
+
+- SCORE
+ - améliorer la fonction de scoring
+
+- S2V
+- repenser la pondération du S2V
 
 - INSTALL
   - pouvoir tout installer facilement sur l'ordinateur de quelqu'un d'autre
