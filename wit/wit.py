@@ -23,6 +23,7 @@ ratp = Intent(word_to_vec = model, nom = "ratp")
 ratp.train("trajet")
 ratp.train("itinéraire")
 ratp.train("aller")
+ratp.train("métro")
 
 # Musique
 music = Intent(word_to_vec = model, nom = "music")
@@ -112,12 +113,8 @@ test["pred_lux"] = test["phrase"].apply(lux.classifier_score)
 test["pred_ratp"] = test["phrase"].apply(ratp.classifier_score)
 test["pred_music"] = test["phrase"].apply(music.classifier_score)
 test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
-print(test)
-test.to_csv("test.csv")
+# print(test)
+test.to_csv("test1.csv")
 
 # RENVOIE LE SCORE TOTAL DU TEST ET LE % DE PHRASES BIEN CLASSÉES
 print(witlike.score(test))
-
-from lemmatiseur.lemmatizeur import Lemmatiseur
-lemmatiseur = Lemmatiseur()
-print(lemmatiseur.lemmatize("marrante"))

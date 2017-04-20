@@ -104,22 +104,33 @@ def sentence_to_vec_weights(sentence, model, key_words):
     Sentence2Vec naïf qui renvoie la moyenne pondérée des mots.
     Si mot not in key_words >> poids = 1
     Si mot in key_words >> poids = 2
+
+    Si mot in keywords AND mot est premier mot phrase >> poids = 3
+    Traduit le fait qu'on commence généralement par l'intention, "allume, joue"
     '''
     # astuce pour créer un vect de la mê dimension que W2V
     vec = np.zeros(model["lampe"].shape[0])
 
     length = 0
-    for word in sentence:
+    for i in range(len(sentence)):
+    # for word in sentence:
         try:
-            if word in key_words:
-                vec += 2*model[word]
+            if sentence[i] in key_words:
+                print(sentence[i].upper(), sep=" ")
+                if i == 0:
+                    vec += 3*model[sentence[i]]
+                    length += 3
+                vec += 2*model[sentence[i]]
                 length += 2
             else:
-                vec += model[word]
+                print(sentence[i], sep=" ")
+                vec += model[sentence[i]]
                 length += 1
         except KeyError:
+            # mot pas dans le word2vec
             continue
     if length == 0:
         raise ValueError('''Cette phrase ne contient que des mots
         absents dans le Word2Vec''')
+    print()
     return(vec/length)
