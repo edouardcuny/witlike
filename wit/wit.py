@@ -41,12 +41,17 @@ humour.train("marrer")
 humour.train("rigoler")
 humour.train("drôle")
 humour.train("marrant")
+humour.train("jouer")
 
 class Wit():
     def __init__(self, word_to_vec, *args):
         self.intents = args # liste de tous les intents
         self.threshold = 0.7 # si score en dessous, intent pas retenu
         self.word_to_vec = word_to_vec
+        self.key_words = [] # liste des key_words des intents
+        for intent in self.intents:
+            self.key_words += intent.key_words
+        self.key_words = list(set(self.key_words)) # supprime duplicates
 
     def train_wit(self):
         # à modifier de façon à ce que le seuil se fixe de façon automatique
@@ -91,30 +96,37 @@ class Wit():
         return(score, accuracy)
 
 
-
     def string_to_intent(self, strintent):
         for intent in self.intents:
             if intent.nom == strintent:
                 return intent
         print(strintent.upper()," pas d'intent trouvé")
 
+    # def s2v(self, sentence):
+
+
+
+
+
 # je fais le test sur le csv écrit à la main
 l = [lux, ratp, humour, music]
 witlike = Wit (model, *l)
 test = pd.read_excel("train_intent.xlsx", sep = ";")
 
+print(witlike.key_words)
+
 # RENVOIE LA CLASSE RETENUE POUR CHAQUE SENTENCE
-# test["pred"] = test["phrase"].apply(witlike.classify_intent)
-# print(test)
+test["pred"] = test["phrase"].apply(witlike.classify_intent)
+print(test)
 
 # RENVOIE LE SCORE POUR CHAQUE INTENT
-test["pred"] = test["phrase"].apply(witlike.classify_intent)
-test["pred_lux"] = test["phrase"].apply(lux.classifier_score)
-test["pred_ratp"] = test["phrase"].apply(ratp.classifier_score)
-test["pred_music"] = test["phrase"].apply(music.classifier_score)
-test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
+# test["pred"] = test["phrase"].apply(witlike.classify_intent)
+# test["pred_lux"] = test["phrase"].apply(lux.classifier_score)
+# test["pred_ratp"] = test["phrase"].apply(ratp.classifier_score)
+# test["pred_music"] = test["phrase"].apply(music.classifier_score)
+# test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
 # print(test)
-test.to_csv("test1.csv")
+# test.to_csv("test1.csv")
 
 # RENVOIE LE SCORE TOTAL DU TEST ET LE % DE PHRASES BIEN CLASSÉES
-print(witlike.score(test))
+# print(witlike.score(test))

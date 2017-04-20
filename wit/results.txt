@@ -1,7 +1,6 @@
-w/o stemmer / Wiki: 
-score = 1.26 
-accuracy = 85%
+W2V
+accuracy 95%
+test_W2V
+16s run time
 
-w/o stemmer / Wac:
-score = 1.26
-accuracy = 87.5%
+New_Way - ML way
