@@ -1,41 +1,11 @@
-,phrase,pred,label
-0,allume la lumière elvis,lux,lux
-1,éteins la lumière dans la salon,lux,lux
-2,allume la lampe de bureau s'il te plaît,lux,lux
-3,est-ce que tu peux allumer ,lux,lux
-4,mets un peu de lumière en bas,lux,lux
-5,éteins toute les lampes,lux,lux
-6,éteins tout,lux,lux
-7,allume les lumières de la colossalle,lux,lux
-8,éteins toute la lumière ,lux,lux
-9,éteins la lampe philipps,lux,lux
-10,fais moi rire,humour,humour
-11,raconte moi une blague,humour,humour
-12,fais nous marrer,humour,humour
-13,t'as pas une blague,humour,humour
-14,t'as pas une vanne,humour,humour
-15,raconte moi une histoire drôle,humour,humour
-16,fais une blague pour tout le monde,humour,humour
-17,t'as pas une histoire marrante,ratp,humour
-18,sors une blague pour voir,humour,humour
-19,il paraît que tu es marrant raconte un truc rigolo pour voir,humour,humour
-20,comment je fais pour aller 6 rue pierre leroux,ratp,ratp
-21,c'est quoi l'itinéraire pour aller place de la république,ratp,ratp
-22,c'est quoi le chemin pour la gare de lyon,ratp,ratp
-23,je prends quoi comme métro pour aller 14 avenue charles floquet,ratp,ratp
-24,c'est quoi le façon la plus rapide d'aller chez peugeot,ratp,ratp
-25,dis moi l'itinéraire pour aller au stade de France,ratp,ratp
-26,quel métro je dois prendre pour aller à la comédie française,ratp,ratp
-27,je dois prendre quel métro pour aller au louvre,ratp,ratp
-28,comment aller au paris brewing company,ratp,ratp
-29,quel itinéraire pour aller au bon marché,ratp,ratp
-30,mets un petit elvis,music,music
-31,joue la vie en rose d'edith piaf,music,music
-32,mets allumer le feu de johnny halliday,music,music
-33,tu peux nous mettre bohemian rapsody de queen,music,music
-34,tu peux jouer london calling de the clash,music,music
-35,mets la chanson gosh de jamie xx,music,music
-36,mets nous un petit jazz,music,music
-37,fais péter moonage daydream de david bowie,ratp,music
-38,joue nous le dernier album des rolling stones,music,music
-39,joue aller les bleus ,music,music
+,phrase,labels,pred
+30,comment aller au paris brewing company,ratp,ratp
+31,c'est quoi l'itinéraire pour aller place de la république,ratp,ratp
+32,raconte moi une histoire drôle,humour,humour
+33,fais péter moonage daydream de david bowie,music,humour
+34,je dois prendre quel métro pour aller au louvre,ratp,ratp
+35,éteins tout,lux,lux
+36,éteins toute les lampes,lux,lux
+37,t'as pas une blague,humour,humour
+38,allume la lumière elvis,lux,lux
+39,c'est quoi le chemin pour la gare de lyon,ratp,humour

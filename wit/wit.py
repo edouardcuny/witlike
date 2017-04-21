@@ -7,48 +7,7 @@ from intent import Intent
 import pandas as pd
 import toolkit as tk # module de nlp perso
 from sklearn.ensemble import RandomForestClassifier # classifier
-from sklearn.multiclass import OneVsRestClassifier
-import random
-
-random.seed(7)
-
-
-# importation du W2V
-os.chdir("/Users/edouardcuny/Desktop/witlike/wit")
-# model = word2vec.load('frWiki_no_phrase_no_postag_1000_skip_cut100.bin')
-model = word2vec.load('frWac_no_postag_no_phrase_700_skip_cut50.bin')
-
-# Lumière
-lux = Intent(word_to_vec = model, nom = "lux")
-lux.train("allumer")
-lux.train("lumière")
-lux.train("lampe")
-lux.train("éteindre")
-
-# Ratp
-ratp = Intent(word_to_vec = model, nom = "ratp")
-ratp.train("trajet")
-ratp.train("itinéraire")
-ratp.train("aller")
-ratp.train("métro")
-
-# Musique
-music = Intent(word_to_vec = model, nom = "music")
-music.train("jouer")
-music.train("mettre")
-music.train("couper")
-music.train("chanson")
-
-# Humour
-humour = Intent(word_to_vec = model, nom = "humour")
-humour.train("blague")
-humour.train("vanne")
-humour.train("rire")
-humour.train("marrer")
-humour.train("rigoler")
-humour.train("drôle")
-humour.train("marrant")
-humour.train("jouer")
+from sklearn.externals import joblib # dumper model
 
 class Wit():
     def __init__(self, word_to_vec, *args):
@@ -59,13 +18,7 @@ class Wit():
         for intent in self.intents:
             self.key_words += intent.key_words
         self.key_words = list(set(self.key_words)) # supprime duplicates
-
         self.model = RandomForestClassifier()
-
-
-    def train_wit(self):
-        # à modifier de façon à ce que le seuil se fixe de façon automatique
-        self.threshold = 0.7
 
     def new_intent(self, nom):
         '''
@@ -184,40 +137,5 @@ class Wit():
 
         return(vec)
 
-# je crée mon objet wit (à mettre dans un main après)
-l = [lux, ratp, humour, music]
-witlike = Wit (model, *l)
-
-# entraînement
-test = pd.read_excel("train_intent_only_intents.xlsx", sep = ";")
-x_train = test.ix[:,0]
-y_train = test.ix[:,1]
-witlike.fit(x_train, y_train)
-
-# classification
-pred = witlike.classify_intent_2(x_train)
-x_train = pd.DataFrame(x_train)
-x_train["pred"] = pred
-x_train["label"] = y_train
-x_train.to_csv("rf.csv")
-
-
-
-
-
-
-# RENVOIE LA CLASSE RETENUE POUR CHAQUE SENTENCE
-# test["pred"] = test["phrase"].apply(witlike.classify_intent)
-# print(test)
-
-# RENVOIE LE SCORE POUR CHAQUE INTENT
-# test["pred"] = test["phrase"].apply(witlike.classify_intent)
-# test["pred_lux"] = test["phrase"].apply(lux.classifier_score)
-# test["pred_ratp"] = test["phrase"].apply(ratp.classifier_score)
-# test["pred_music"] = test["phrase"].apply(music.classifier_score)
-# test["pred_humour"] = test["phrase"].apply(humour.classifier_score)
-# print(test)
-# test.to_csv("test1.csv")
-
-# RENVOIE LE SCORE TOTAL DU TEST ET LE % DE PHRASES BIEN CLASSÉES
-# print(witlike.score(test))
+    def dump_model(self):
+        joblib.dump(self.model, 'model.pkl')
