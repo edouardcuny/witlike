@@ -3,6 +3,7 @@
 import word2vec # word2vec déjà entraîné
 import os
 import pandas as pd
+import pickle # pour dumper witlike object
 
 from intent import Intent
 
@@ -48,7 +49,6 @@ HUMOUR.train("drôle")
 HUMOUR.train("marrant")
 HUMOUR.train("jouer")
 
-
 # je crée mon objet wit (à mettre dans un main après)
 l = [LUX, RATP, HUMOUR, MUSIC]
 witlike = Wit(MODEL, *l)
@@ -57,35 +57,8 @@ witlike = Wit(MODEL, *l)
 data = pd.read_excel("train_intent_only_intents.xlsx", sep = ";")
 data = data.sample(frac=1).reset_index(drop=True)
 
-x_train = data.ix[:30, 0]
-y_train = data.ix[:30, 1]
+x_train = data.ix[:, 0]
+y_train = data.ix[:, 1]
 witlike.fit(x_train, y_train)
-witlike.dump_model()
 
-# classification
-x_test = data.ix[30:, 0]
-y_test = data.ix[30:, 1]
-
-pred = witlike.classify_intent_2(x_test)
-x_test = pd.DataFrame(x_test)
-x_test["labels"] = y_test
-x_test["pred"] = pred
-x_test.to_csv("rf.csv")
-
-
-
-# RENVOIE LA CLASSE RETENUE POUR CHAQUE SENTENCE
-# test["pred"] = test["phrase"].apply(witlike.classify_intent)
-# print(test)
-
-# RENVOIE LE SCORE POUR CHAQUE INTENT
-# test["pred"] = test["phrase"].apply(witlike.classify_intent)
-# test["pred_LUX"] = test["phrase"].apply(LUX.classifier_score)
-# test["pred_RATP"] = test["phrase"].apply(ratp.classifier_score)
-# test["pred_MUSIC"] = test["phrase"].apply(music.classifier_score)
-# test["pred_HUMOUR"] = test["phrase"].apply(HUMOUR.classifier_score)
-# print(test)
-# test.to_csv("test1.csv")
-
-# RENVOIE LE SCORE TOTAL DU TEST ET LE % DE PHRASES BIEN CLASSÉES
-# print(witlike.score(test))
+pickle.dump( witlike, open( "wit.p", "wb" ) )

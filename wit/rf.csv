@@ -1,11 +1,41 @@
-,phrase,labels,pred
-30,comment aller au paris brewing company,ratp,ratp
-31,c'est quoi l'itinéraire pour aller place de la république,ratp,ratp
-32,raconte moi une histoire drôle,humour,humour
-33,fais péter moonage daydream de david bowie,music,humour
-34,je dois prendre quel métro pour aller au louvre,ratp,ratp
-35,éteins tout,lux,lux
-36,éteins toute les lampes,lux,lux
-37,t'as pas une blague,humour,humour
-38,allume la lumière elvis,lux,lux
-39,c'est quoi le chemin pour la gare de lyon,ratp,humour
+,phrase,intent,pred,pred2
+0,éteins la lumière dans la salon,lux,lux,lux
+1,éteins toute les lampes,lux,lux,lux
+2,sors une blague pour voir,humour,humour,humour
+3,éteins toute la lumière ,lux,lux,lux
+4,allume la lampe de bureau s'il te plaît,lux,lux,lux
+5,comment aller au paris brewing company,ratp,ratp,ratp
+6,c'est quoi l'itinéraire pour aller place de la république,ratp,ratp,ratp
+7,quel itinéraire pour aller au bon marché,ratp,ratp,ratp
+8,c'est quoi le chemin pour la gare de lyon,ratp,humour,humour
+9,mets allumer le feu de johnny halliday,music,music,music
+10,raconte moi une histoire drôle,humour,humour,humour
+11,je dois prendre quel métro pour aller au louvre,ratp,ratp,ratp
+12,tu peux nous mettre bohemian rapsody de queen,music,music,music
+13,éteins la lampe philipps,lux,lux,lux
+14,mets un peu de lumière en bas,lux,lux,lux
+15,éteins tout,lux,lux,lux
+16,t'as pas une blague,humour,humour,humour
+17,fais péter moonage daydream de david bowie,music,humour,humour
+18,t'as pas une vanne,humour,humour,humour
+19,est-ce que tu peux allumer ,lux,lux,lux
+20,fais nous marrer,humour,humour,humour
+21,c'est quoi le façon la plus rapide d'aller chez peugeot,ratp,ratp,ratp
+22,comment je fais pour aller 6 rue pierre leroux,ratp,ratp,ratp
+23,dis moi l'itinéraire pour aller au stade de France,ratp,ratp,ratp
+24,fais une blague pour tout le monde,humour,humour,humour
+25,mets la chanson gosh de jamie xx,music,music,music
+26,je prends quoi comme métro pour aller 14 avenue charles floquet,ratp,ratp,ratp
+27,t'as pas une histoire marrante,humour,humour,humour
+28,joue la vie en rose d'edith piaf,music,music,music
+29,tu peux jouer london calling de the clash,music,music,music
+30,quel métro je dois prendre pour aller à la comédie française,ratp,ratp,ratp
+31,joue aller les bleus ,music,music,music
+32,il paraît que tu es marrant raconte un truc rigolo pour voir,humour,humour,humour
+33,mets un petit elvis,music,music,music
+34,mets nous un petit jazz,music,music,music
+35,joue nous le dernier album des rolling stones,music,music,music
+36,allume les lumières de la colossalle,lux,lux,lux
+37,raconte moi une blague,humour,humour,humour
+38,fais moi rire,humour,humour,humour
+39,allume la lumière elvis,lux,lux,lux

@@ -4,3 +4,5 @@ test_W2V
 16s run time
 
 New_Way - ML way
+accuracy 100%
+gros overfitting

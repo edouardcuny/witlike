@@ -137,5 +137,5 @@ class Wit():
 
         return(vec)
 
-    def dump_model(self):
-        joblib.dump(self.model, 'model.pkl')
+    def dump_model(self, name):
+        joblib.dump(self.model, name)
