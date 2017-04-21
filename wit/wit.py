@@ -1,6 +1,5 @@
 # coding : utf-8
 
-import word2vec # word2vec déjà entraîné
 import os
 import numpy as np
 from intent import Intent
@@ -10,10 +9,9 @@ from sklearn.ensemble import RandomForestClassifier # classifier
 from sklearn.externals import joblib # dumper model
 
 class Wit():
-    def __init__(self, word_to_vec, *args):
+    def __init__(self, *args):
         self.intents = args # liste de tous les intents
         self.threshold = 0.7 # si score en dessous, intent pas retenu
-        self.word_to_vec = word_to_vec
         self.key_words = [] # liste des key_words des intents
         for intent in self.intents:
             self.key_words += intent.key_words
@@ -27,37 +25,6 @@ class Wit():
         '''
         intent = Intent(word_to_vec = self.word_to_vec, nom = nom)
         self.intents.append(intent)
-
-    def classify_intent_1(self, sentence):
-        '''
-        Renvoie pour 'sentence' l'intent avec le score maximal.
-        NB = pour l'instant pas d'histoire de threshold cad qu'il renverra
-        toujours un intent
-        '''
-        score_l = []
-        for intent in self.intents:
-            score_l.append(intent.classifier_score(sentence))
-        idx = score_l.index(max(score_l))
-        return(self.intents[idx].nom) # après la faire en mode dictionnaire
-
-    def score(self, test):
-        '''
-        Renvoie un score et un pourcentage sur la performance de classification
-        sur un set de test.
-
-        score = moyenne(écart au carrés à 2 du score de l'intent)
-        pourcentage = pourcentage de requêtes bien classifiées
-
-        '''
-        new = test.loc[test["intent"] != "nothing"].copy()
-        new["score"] = np.vectorize(lambda x,y : self.string_to_intent(x).classifier_score(y))(new["intent"], new["phrase"])
-        new["error"] = new["score"].apply(lambda x: (2.0-x)**2)
-        score = np.mean(new["error"])
-
-        new["pred"] = new["phrase"].apply(witlike.classify_intent)
-        accuracy = len(new[new["pred"] == new["intent"]])/len(new)
-        return(score, accuracy)
-
 
     def string_to_intent(self, strintent):
         for intent in self.intents:
