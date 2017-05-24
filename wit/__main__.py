@@ -61,4 +61,4 @@ x_train = data.ix[:, 0]
 y_train = data.ix[:, 1]
 witlike.fit(x_train, y_train)
 
-pickle.dump( witlike, open( "wit.p", "wb" ) )
+pickle.dump( witlike, open( "wit.p", "wb" ), protocol=2 )

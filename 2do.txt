@@ -1,14 +1,14 @@
+§ supprimer W2V
++ train avec un csv post
++ return json avec sentence et intent (use jsonify)
++ présentation du code
++ me brancher sur elvis
+
 - NER
-
-- SCORE
- - améliorer la fonction de scoring
-
-- S2V
-- repenser la pondération du S2V
 
 - INSTALL
   - pouvoir tout installer facilement sur l'ordinateur de quelqu'un d'autre
 
 - PLUS LOIN
-- autofixation des HP / pertinence d'en avoir ? 
-- pouvoir interagir avec l'outil, créer de nouveaux intents, comme wit quoi
+- création d'intents
+- ajouts de keywords pour des intents
